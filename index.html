@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise for Rakshaa ✨</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;600&family=Cinzel:wght@400;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0a0a0a; 
+        font-family: 'Quicksand', sans-serif;
+        overflow: hidden;
+        perspective: 1000px;
+    }
+
+    /* --- THEATER CURTAIN SYSTEM --- */
+    .theater-stage {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: flex;
+        background: #000;
+        cursor: pointer;
+    }
+
+    .curtain {
+        position: absolute;
+        top: 0;
+        width: 50.5%;
+        height: 100%;
+        background: #ff1493; 
+        z-index: 10001;
+        box-shadow: inset 0 0 120px rgba(0,0,0,0.6);
+    }
+
+    .curtain-left { left: 0; border-right: 5px solid #ffd700; transform-origin: left; }
+    .curtain-right { right: 0; border-left: 5px solid #ffd700; transform-origin: right; }
+
+    .curtain-texture {
+        width: 100%; height: 100%;
+        background-image: repeating-linear-gradient(90deg, 
+            transparent 0px, transparent 40px, 
+            rgba(0,0,0,0.1) 42px, rgba(0,0,0,0.1) 45px);
+    }
+
+    .stage-prompt {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10005;
+        text-align: center;
+        pointer-events: none;
+        width: 90%; /* Better for mobile */
+    }
+
+    .special-name {
+        font-family: 'Dancing Script', cursive;
+        font-size: 5rem;
+        color: #fff;
+        text-shadow: 0 0 10px #ffd700, 0 0 40px #ff69b4;
+        margin-bottom: 10px;
+        animation: textFloat 3s ease-in-out infinite;
+    }
+
+    .special-instruction {
+        font-family: 'Cinzel', serif;
+        font-size: 1.1rem;
+        color: #ffd700;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        font-weight: 700;
+        display: block;
+        margin-top: 15px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .glow-ring {
+        width: 80px; height: 80px;
+        border: 2px solid #ffd700;
+        border-radius: 50%;
+        margin: 0 auto 30px;
+        animation: ringPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes textFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    @keyframes ringPulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.15); opacity: 1; } }
+
+    /* --- MAIN CONTAINER --- */
+    .container {
+        text-align: center;
+        z-index: 10;
+        padding: 2.5rem 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        border: 1px solid rgba(255, 105, 180, 0.3);
+        width: 85%; /* Responsive width */
+        max-width: 500px;
+        visibility: hidden;
+    }
+
+    h1 {
+        font-family: 'Dancing Script', cursive;
+        font-size: 4rem;
+        color: #ff69b4;
+        text-shadow: 0 0 20px #ff69b4;
+        margin-bottom: 1rem;
+    }
+
+    .greeting { font-size: 1.2rem; color: #fff; margin-bottom: 2rem; min-height: 4em; }
+
+    .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        background: linear-gradient(45deg, #ff1493, #ff69b4);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .cursor { width: 25px; height: 25px; background: #ff69b4; border-radius: 50%; position: fixed; pointer-events: none; mix-blend-mode: screen; z-index: 9999; }
+
+    /* --- MOBILE RESPONSIVE FIXES --- */
+    @media (max-width: 600px) {
+        .special-name {
+            font-size: 3rem; /* Smaller for mobile screens */
+        }
+        .special-instruction {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+        }
+        h1 {
+            font-size: 2.8rem; /* Prevents title overlap */
+        }
+        .greeting {
+            font-size: 1.1rem;
+        }
+        .glow-ring {
+            width: 60px; height: 60px;
+        }
+        .container {
+            width: 90%;
+            padding: 2rem 1rem;
+        }
+        /* Hide custom cursor on mobile as it interferes with touch */
+        .cursor {
+            display: none;
+        }
+    }
+</style>
+</head>
+<body>
+    
+    <div class="theater-stage" id="theaterStage">
+        <div class="curtain curtain-left"><div class="curtain-texture"></div></div>
+        <div class="curtain curtain-right"><div class="curtain-texture"></div></div>
+        <div class="stage-prompt">
+            <div class="glow-ring"></div>
+            <h2 class="special-name">For Rakshaa</h2>
+            <span class="special-instruction">Tap to Reveal Magic</span>
+        </div>
+    </div>
+
+    <div class="cursor"></div>
+    <div class="bg-decor" id="decor"></div>
+
+    <div class="container" id="mainContainer">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🎁</div>
+        <h1>Happy Birthday Raksha!!</h1>
+        <div class="greeting" id="typing-text"></div>
+        <button class="cta-button" onclick="startTransition()">
+            Enter Your World 💕
+        </button>
+    </div>
+
+    <script>
+        // Cursor Follow
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX - 12, y: e.clientY - 12, duration: 0.2 });
+        });
+
+        // REVEAL LOGIC
+        const stage = document.getElementById('theaterStage');
+        stage.addEventListener('click', () => {
+            gsap.to(".curtain-left", { x: '-100%', scaleX: 0.6, duration: 2, ease: "power2.inOut" });
+            gsap.to(".curtain-right", { x: '100%', scaleX: 0.6, duration: 2, ease: "power2.inOut" });
+            gsap.to(".stage-prompt", { opacity: 0, scale: 0.5, duration: 0.8 });
+
+            setTimeout(() => {
+                stage.style.display = 'none';
+                document.getElementById('mainContainer').style.visibility = 'visible';
+                gsap.from("#mainContainer", { scale: 0.8, opacity: 0, duration: 1, ease: "back.out" });
+                type();
+                setInterval(createDecor, 400);
+            }, 1200);
+        });
+
+        const text = "A little surprise for the most special girl... Are you ready to see what's inside?";
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                document.getElementById("typing-text").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, 50);
+            }
+        }
+
+        function createDecor() {
+            const icons = ['✨', '💖', '🎈', '🌸', '⭐'];
+            const decor = document.createElement('div');
+            decor.className = 'floating-icon';
+            decor.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            decor.style.left = Math.random() * 100 + 'vw';
+            decor.style.top = '110vh';
+            decor.style.position = 'absolute';
+            document.getElementById('decor').appendChild(decor);
+            gsap.to(decor, { y: '-120vh', rotation: 360, duration: Math.random() * 5 + 5, onComplete: () => decor.remove() });
+        }
+
+        function startTransition() {
+            gsap.to(".container", { 
+                scale: 0, rotation: 720, opacity: 0, duration: 1, ease: "power2.in",
+                onComplete: () => { window.location.href = 'cause.html'; }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&family=Quicksand:wght@400;600&display=swap');
+
+:root {
+    --primary: #ff69b4;
+    --gold: #d4af37;
+    --dark: #2c3e50;
+    --bg: #fff5f8;
+}
+
+body {
+    background-color: var(--bg);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    overflow: hidden;
+    background-image: radial-gradient(circle at 50% 50%, #ffffff 0%, #fff5f8 100%);
+}
+
+.book-wrapper {
+    width: 400px;
+    height: 550px;
+    perspective: 2000px;
+}
+
+.book {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+    cursor: pointer;
+    background: white;
+    border-radius: 4px 15px 15px 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.page-content {
+    padding: 2.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    backface-visibility: hidden;
+}
+
+/* Cover Style */
+.cover-front {
+    background: linear-gradient(135deg, #2c3e50, #000);
+    border: 5px solid var(--gold);
+    color: white;
+}
+
+.gold-border {
+    border: 2px solid var(--gold);
+    padding: 2rem;
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.crown { font-size: 3rem; margin-bottom: 1rem; }
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold);
+}
+
+.name-tag {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    margin: 1rem 0;
+}
+
+/* Photo Frames */
+.photo-frame {
+    width: 100%;
+    height: 250px;
+    border: 10px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+    transform: rotate(-2deg);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Flip Animation */
+.page.flipped {
+    transform: rotateY(-180deg);
+}
+
+/* Layering */
+.page:nth-child(1) { z-index: 5; }
+.page:nth-child(2) { z-index: 4; }
+.page:nth-child(3) { z-index: 3; }
+.page:nth-child(4) { z-index: 2; }
+.page:nth-child(5) { z-index: 1; }
+
+/* Final Celebration Button */
+.celebrate-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: bold;
+    margin-top: 2rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+}
+
+.hint {
+    position: absolute;
+    bottom: 30px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}

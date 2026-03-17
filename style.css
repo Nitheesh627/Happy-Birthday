@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+body {
+    min-height: 100vh;
+    background: #fff5f8; /* Your original soft pink background */
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* --- Theater Curtain Effects --- */
+.theater-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    background: #000;
+}
+
+.curtain {
+    position: absolute;
+    top: 0;
+    width: 50.5%;
+    height: 100%;
+    background: #ff1493; /* Deep celebratory pink */
+    z-index: 10001;
+}
+
+.curtain-left { left: 0; transform-origin: left; }
+.curtain-right { right: 0; transform-origin: right; }
+
+.curtain-texture {
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(90deg, 
+        transparent 0px, 
+        transparent 40px, 
+        rgba(0,0,0,0.15) 45px, 
+        rgba(0,0,0,0.15) 50px);
+}
+
+.curtain-edge {
+    position: absolute;
+    top: 0;
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(to right, #ffd700, #b8860b); /* Gold Edge */
+}
+.curtain-left .curtain-edge { right: 0; }
+.curtain-right .curtain-edge { left: 0; }
+
+.stage-prompt {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10005;
+    text-align: center;
+    color: white;
+}
+
+.glow-ring {
+    width: 60px; height: 60px;
+    border: 3px solid #ffd700;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.9); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.5; }
+}
+
+/* --- Original Page Content Design --- */
+.main-container { text-align: center; }
+
+.birthday-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: #ff1493;
+    margin-bottom: 20px;
+    opacity: 0; /* Animated in via JS */
+}
+
+.typewriter-container {
+    min-height: 50px;
+    margin-bottom: 40px;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.enter-btn {
+    background: #ff1493;
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 20px rgba(255, 20, 147, 0.3);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-cursor {
+    width: 20px; height: 20px;
+    border: 2px solid #ff1493;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+}

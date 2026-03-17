@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakshaa's Celebration ✨</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@600&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(circle at center, #2c001e 0%, #000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 2000px;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* The Pink Flame Background */
+        .flame-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .flame {
+            position: absolute;
+            bottom: -50px;
+            background: radial-gradient(circle, #ff69b4, #ff1493, transparent);
+            border-radius: 50%;
+            filter: blur(15px);
+            opacity: 0.6;
+            animation: rise 4s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0.6; }
+            100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
+        }
+
+        /* The 3D Structure */
+        .scene {
+            width: 300px;
+            height: 400px;
+            transform-style: preserve-3d;
+            animation: rotateStructure 20s infinite linear;
+        }
+
+        @keyframes rotateStructure {
+            from { transform: rotateY(0deg) rotateX(10deg); }
+            to { transform: rotateY(360deg) rotateX(10deg); }
+        }
+
+        /* Cross Structure Pages */
+        .card {
+            position: absolute;
+            width: 300px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            border-radius: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+            backface-visibility: hidden;
+        }
+
+        /* Positioning cards in a "Cross/Plus" orbit */
+        .card:nth-child(1) { transform: rotateY(0deg) translateZ(250px); }
+        .card:nth-child(2) { transform: rotateY(90deg) translateZ(250px); }
+        .card:nth-child(3) { transform: rotateY(180deg) translateZ(250px); }
+        .card:nth-child(4) { transform: rotateY(270deg) translateZ(250px); }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #ff69b4;
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ff69b4;
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+        }
+
+        /* Celebration Overlay */
+        .overlay-text {
+            position: absolute;
+            top: 10%;
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ff69b4;
+            text-shadow: 0 0 20px white;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="flame-container" id="flames"></div>
+    
+    <div class="overlay-text">Happy Birthday Racchaa 💖</div>
+
+    <div class="scene">
+        <div class="card">
+            <img src="./d1.jpg" alt="Memory 1">
+            <h2>The Sweetest</h2>
+            <p>You bring so much joy into every moment we share! ✨</p>
+        </div>
+        <div class="card">
+            <img src="./d2.jpg" alt="Memory 2">
+            <h2>Our Bond</h2>
+            <p>To the girl who makes life feel like a celebration! 🌸</p>
+        </div>
+        <div class="card">
+            <img src="./d3.jpg" alt="Memory 3">
+            <h2>Pure Magic</h2>
+            <p>Keep shining, Rakshaa. You are truly one of a kind. 💖</p>
+        </div>
+        <div class="card">
+            <img src="./gif2.gif" alt="Memory 4">
+            <h2>Pure Magic</h2>
+            <p>Keep shining, Rakshaa. You are truly one of a kind. 💖</p>
+        </div>
+        <div class="card">
+            <img src="./d1.jpg" alt="Memory 5">
+            <h2>Forever Bestie</h2>
+            <p>Here's to a year of success and endless smiles! 🎂</p>
+        </div>
+    </div>
+
+    <script>
+        // Create Pink Flames
+        const flameContainer = document.getElementById('flames');
+        function createFlame() {
+            const flame = document.createElement('div');
+            flame.className = 'flame';
+            const size = Math.random() * 80 + 20;
+            flame.style.width = size + 'px';
+            flame.style.height = size + 'px';
+            flame.style.left = Math.random() * 100 + 'vw';
+            flame.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            flame.style.filter = `blur(${Math.random() * 20 + 10}px)`;
+            
+            flameContainer.appendChild(flame);
+            setTimeout(() => flame.remove(), 5000);
+        }
+
+        setInterval(createFlame, 150);
+
+        // Interactive: Pause rotation on hover
+        const scene = document.querySelector('.scene');
+        scene.addEventListener('mouseenter', () => {
+            scene.style.animationPlayState = 'paused';
+        });
+        scene.addEventListener('mouseleave', () => {
+            scene.style.animationPlayState = 'running';
+        });
+    </script>
+</body>
+</html>
